@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="608860c9-a708-4eb1-9062-5f1689612ecf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/View3D/boxTriangle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +54,7 @@
       <option name="presentableId" value="Default" />
       <updated>1608373809557</updated>
       <workItem from="1608373812804" duration="175000" />
-      <workItem from="1608374185106" duration="11256000" />
+      <workItem from="1608374185106" duration="11307000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1608373898224</created>
@@ -76,7 +77,21 @@
       <option name="project" value="LOCAL" />
       <updated>1608385484439</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="How do you like it, Elon Musk?">
+      <created>1608385501422</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1608385501422</updated>
+    </task>
+    <task id="LOCAL-00005" summary="idea">
+      <created>1608385517626</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1608385517626</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -86,6 +101,8 @@
     <MESSAGE value="init" />
     <MESSAGE value="clean" />
     <MESSAGE value="simple components and stupid triangle box mock." />
-    <option name="LAST_COMMIT_MESSAGE" value="simple components and stupid triangle box mock." />
+    <MESSAGE value="How do you like it, Elon Musk?" />
+    <MESSAGE value="idea" />
+    <option name="LAST_COMMIT_MESSAGE" value="idea" />
   </component>
 </project>
