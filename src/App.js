@@ -1,8 +1,15 @@
+import View3D from "./components/View3D";
+import Params from "./components/Params";
+
 function App() {
   return (
-    <div>
-      <h1>App</h1>
-      <p>text</p>
+    <div className="box">
+        <div className="view3d">
+            <View3D/>
+        </div>
+        <div className="params">
+            <Params/>
+        </div>
     </div>
   );
 }

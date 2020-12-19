@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.box {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.view3d {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.canvas {
+    width: 500px;
+    height: 300px;
+    border: 1px solid red;
+}
+
+.params {
+    width: 350px;
+    padding: 20px;
+    background: #eee;
+}
