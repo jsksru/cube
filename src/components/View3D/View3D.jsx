@@ -1,36 +1,52 @@
-import { Component } from 'react';
-import { TriangleBox } from './boxTriangle';
+import {Component} from 'react';
 import * as THREE from 'three';
 
 class View3D extends Component {
-    componentDidMount() {
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera( 75, 500 / 300, 0.1, 1000 );
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize( 500, 300 );
-        this.elem.appendChild(renderer.domElement);
-        const geometry = new THREE.BufferGeometry();
+  constructor(props) {
+    super(props);
+    this.buffer = props.buffer;
+  }
 
-        const vertices = TriangleBox(10,10,10);
+  componentDidMount() {
+    const scene = new THREE.Scene();
 
-        geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-        geometry.computeBoundingSphere();
-        const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-        const cube = new THREE.Mesh( geometry, material );
-        scene.add( cube );
-        camera.position.z = 50;
-        function animate() {
-            requestAnimationFrame( animate );
-            cube.rotation.x += 0.02;
-            cube.rotation.y += 0.02;
-            renderer.render( scene, camera );
-        }
-        animate();
+    const camera = new THREE.PerspectiveCamera(70, 500 / 300, 0.1, 1000);
+    camera.position.z = 30;
+
+    const renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setSize(700, 500);
+    renderer.domElement.className = "canvas";
+    renderer.setClearColor(0xDDDDDD, 1);
+    this.elem.appendChild(renderer.domElement);
+
+    const vertices = new Float32Array(this.buffer);
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    geometry.computeVertexNormals();
+    geometry.center();
+
+    const material = new THREE.MeshLambertMaterial({color: 0xBBBBBB});
+    const cube = new THREE.Mesh(geometry, material);
+
+    const light = new THREE.PointLight(0xFFFFFF);
+    light.position.set(5000, 5000, 5000);
+    scene.add(light);
+
+    scene.add(cube);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render(scene, camera);
     }
 
-    render() {
-        return <div ref={ref => this.elem = ref}></div>;
-    }
+    animate();
+  }
+
+  render() {
+    return <div className="canvas__wrapper" ref={ref => this.elem = ref}></div>;
+  }
 }
 
 export default View3D;
