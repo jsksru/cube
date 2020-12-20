@@ -1,51 +1,86 @@
-import {Component} from 'react';
+import {Component, createRef} from 'react';
 import * as THREE from 'three';
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 class View3D extends Component {
   constructor(props) {
     super(props);
     this.buffer = props.buffer;
+    this.elemRef = createRef();
   }
 
-  componentDidMount() {
-    const scene = new THREE.Scene();
+  sceneSetup() {
+    const elem = this.elemRef.current;
+    const width = elem.clientWidth;
+    const height = elem.clientHeight;
 
-    const camera = new THREE.PerspectiveCamera(70, 500 / 300, 0.1, 1000);
-    camera.position.z = 30;
+    this.scene = new THREE.Scene();
 
-    const renderer = new THREE.WebGLRenderer({antialias: true});
-    renderer.setSize(700, 500);
-    renderer.domElement.className = "canvas";
-    renderer.setClearColor(0xDDDDDD, 1);
-    this.elem.appendChild(renderer.domElement);
+    this.camera = new THREE.PerspectiveCamera(
+      75,
+      width / height,
+      0.1,
+      1000
+    );
+    this.camera.position.z = 30;
 
+    new OrbitControls( this.camera, elem );
+
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      canvas: elem
+    });
+    this.renderer.setSize( width, height );
+    this.renderer.setClearColor(0xDDDDDD, 1);
+  }
+
+  addObjects() {
     const vertices = new Float32Array(this.buffer);
     const geometry = new THREE.BufferGeometry();
+    const material = new THREE.MeshLambertMaterial({color: 0xBBBBBB});
     geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
     geometry.computeVertexNormals();
     geometry.center();
 
-    const material = new THREE.MeshLambertMaterial({color: 0xBBBBBB});
-    const cube = new THREE.Mesh(geometry, material);
+    this.cube = new THREE.Mesh(geometry, material);
 
     const light = new THREE.PointLight(0xFFFFFF);
     light.position.set(5000, 5000, 5000);
-    scene.add(light);
 
-    scene.add(cube);
+    this.scene.add(light);
+    this.scene.add(this.cube);
+  }
 
-    function animate() {
-      requestAnimationFrame(animate);
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
-      renderer.render(scene, camera);
-    }
+  startAnimation = () => {
+    this.cube.rotation.x += 0.01;
+    this.cube.rotation.y += 0.01;
+    this.renderer.render( this.scene, this.camera );
+    this.requestID = window.requestAnimationFrame(this.startAnimation);
+  };
 
-    animate();
+  handleWindowResize = () => {
+    const elem = this.elemRef.current;
+    const width = elem.clientWidth;
+    const height = elem.clientHeight;
+    this.renderer.setSize( width, height );
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+  };
+
+  componentDidMount() {
+    this.sceneSetup();
+    this.addObjects();
+    this.startAnimation();
+    window.addEventListener('resize', this.handleWindowResize);
+  }
+  componentWillUnmount() {
+    this.scene.clear();
+    window.removeEventListener('resize', this.handleWindowResize);
+    window.cancelAnimationFrame(this.requestID);
   }
 
   render() {
-    return <div className="canvas__wrapper" ref={ref => this.elem = ref}></div>;
+    return <canvas className="canvas" ref={this.elemRef}></canvas>;
   }
 }
 

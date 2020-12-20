@@ -1,7 +1,6 @@
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 .box {
@@ -17,12 +16,10 @@ body {
     align-items: center;
 }
 
-.canvas__wrapper,
 .canvas {
     width: 100%;
     height: 100%;
 }
-
 
 .params {
     width: 350px;

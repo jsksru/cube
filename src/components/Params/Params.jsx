@@ -12,19 +12,19 @@ const Params = ({values, onChange}) => {
       <div>
         <label>
           <span>Width:</span>
-          <input type="number" value={width} onChange={(e) => setWidth(e.target.value)}/>
+          <input type="number" value={width} onInput={(e) => setWidth(e.target.value)}/>
         </label>
       </div>
       <div>
         <label>
           <span>Height:</span>
-          <input type="number" value={height} onChange={(e) => setHeight(e.target.value)}/>
+          <input type="number" value={height} onInput={(e) => setHeight(e.target.value)}/>
         </label>
       </div>
       <div>
         <label>
           <span>Length:</span>
-          <input type="number" value={length} onChange={(e) => setLength(e.target.value)}/>
+          <input type="number" value={length} onInput={(e) => setLength(e.target.value)}/>
         </label>
       </div>
       <div>

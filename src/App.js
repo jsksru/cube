@@ -31,6 +31,11 @@ function App() {
         fetchData();
     }, []);
 
+    const changeParams = (params) => {
+      setParams(params);
+      fetchData();
+    };
+
     return (
         <div className="box">
             <div className="view3d">
@@ -39,7 +44,7 @@ function App() {
                 }
             </div>
             <div className="params">
-                <Params values={params} onChange={(params) => {setParams(params);fetchData()}} />
+                <Params values={params} onChange={params => changeParams(params)} />
             </div>
         </div>
     );
