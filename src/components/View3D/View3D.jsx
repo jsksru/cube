@@ -15,6 +15,7 @@ class View3D extends Component {
     const height = elem.clientHeight;
 
     this.scene = new THREE.Scene();
+    this.scene.fog = new THREE.FogExp2(0xFFFFFF, 0.03);
 
     this.camera = new THREE.PerspectiveCamera(
       75,
@@ -24,7 +25,7 @@ class View3D extends Component {
     );
     this.camera.position.z = 30;
 
-    new OrbitControls( this.camera, elem );
+    new OrbitControls( this.camera, this.elemRef.current );
 
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -52,8 +53,8 @@ class View3D extends Component {
   }
 
   startAnimation = () => {
-    this.cube.rotation.x += 0.01;
-    this.cube.rotation.y += 0.01;
+    this.cube.rotation.x += 0.005;
+    this.cube.rotation.y += 0.005;
     this.renderer.render( this.scene, this.camera );
     this.requestID = window.requestAnimationFrame(this.startAnimation);
   };
@@ -80,7 +81,7 @@ class View3D extends Component {
   }
 
   render() {
-    return <canvas className="canvas" ref={this.elemRef}></canvas>;
+    return <canvas className="canvas" ref={this.elemRef} />;
   }
 }
 

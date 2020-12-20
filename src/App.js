@@ -11,29 +11,24 @@ function App() {
         length: 10,
     });
 
-    const fetchData = () => {
-        setLoading(true);
-        const url = `http://localhost:8080/cube?width=${params.width}&height=${params.height}&length=${params.length}`;
-        fetch(url, { method: 'GET' })
-            .then(response => response.json())
-            .then(data => {
-                if (data && !data.error && data.buffer) {
-                    setBuffer(data.buffer);
-                    setLoading(false);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }
-
     useEffect(() => {
-        fetchData();
-    }, []);
+      setLoading(true);
+      const url = `http://localhost:8080/cube?width=${params.width}&height=${params.height}&length=${params.length}`;
+      fetch(url, { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+          if (data && !data.error && data.buffer) {
+            setBuffer(data.buffer);
+            setLoading(false);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }, [params]);
 
     const changeParams = (params) => {
       setParams(params);
-      fetchData();
     };
 
     return (
