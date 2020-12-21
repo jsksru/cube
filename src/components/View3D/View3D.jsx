@@ -61,8 +61,10 @@ class View3D extends Component {
 
   handleWindowResize = () => {
     const elem = this.elemRef.current;
-    const width = elem.clientWidth;
-    const height = elem.clientHeight;
+    elem.removeAttribute('style');
+    const width = elem.offsetWidth;
+    const height = elem.offsetHeight;
+
     this.renderer.setSize( width, height );
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
