@@ -6,14 +6,12 @@ body {
 .box {
     display: flex;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 .view3d {
     flex-grow: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .canvas {
