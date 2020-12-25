@@ -5,7 +5,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 class View3D extends Component {
   constructor(props) {
     super(props);
-    this.buffer = props.buffer;
     this.elemRef = createRef();
     this.geometry = new THREE.BufferGeometry();
   }
@@ -36,17 +35,15 @@ class View3D extends Component {
     this.renderer.setClearColor(0xDDDDDD, 1);
   }
 
-  createGeometry() {
-    const vertices = new Float32Array(this.buffer);
+  updateGeometry() {
+    const vertices = new Float32Array(this.props.buffer);
     this.geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
     this.geometry.computeVertexNormals();
     this.geometry.center();
   }
 
-  addObject() {
+  createObject() {
     const material = new THREE.MeshLambertMaterial({color: 0xBBBBBB});
-    this.createGeometry();
-
     this.object = new THREE.Mesh(this.geometry, material);
     this.scene.add(this.object);
   }
@@ -76,17 +73,28 @@ class View3D extends Component {
   };
 
   componentDidMount() {
+    console.log('3D View mounted');
     this.sceneSetup();
-    this.addObject();
+    this.createObject();
     this.addLight();
     this.startAnimation();
     window.addEventListener('resize', this.handleWindowResize);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.buffer.join() !== this.props.buffer.join()) {
+      if (this.props.buffer.length > 0) {
+        this.updateGeometry();
+        console.log('Geometry updated');
+      }
+    }
   }
 
   componentWillUnmount() {
     this.scene.clear();
     window.removeEventListener('resize', this.handleWindowResize);
     window.cancelAnimationFrame(this.requestID);
+    console.log('3D View Unmounted');
   }
 
   render() {
