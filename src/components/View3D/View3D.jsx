@@ -47,8 +47,8 @@ class View3D extends Component {
     const material = new THREE.MeshLambertMaterial({color: 0xBBBBBB});
     this.createGeometry();
 
-    this.cube = new THREE.Mesh(this.geometry, material);
-    this.scene.add(this.cube);
+    this.object = new THREE.Mesh(this.geometry, material);
+    this.scene.add(this.object);
   }
 
   addLight() {
@@ -58,8 +58,8 @@ class View3D extends Component {
   }
 
   startAnimation = () => {
-    this.cube.rotation.x += 0.005;
-    this.cube.rotation.y += 0.005;
+    this.object.rotation.x += 0.005;
+    this.object.rotation.y += 0.005;
     this.renderer.render( this.scene, this.camera );
     this.requestID = window.requestAnimationFrame(this.startAnimation);
   };
