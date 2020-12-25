@@ -25,7 +25,7 @@ function App() {
         .catch(err => {
           console.log(err);
         });
-    }, [params]);
+    }, [params.width, params.height, params.length]);
 
     const changeParams = (params) => {
       setParams(params);
@@ -34,12 +34,11 @@ function App() {
     return (
         <div className="box">
             <div className="view3d">
-                {
-                    loading ? <div>Загрузка...</div> : <View3D buffer={buffer} />
-                }
+              <View3D buffer={buffer} />
+              {loading && <div className="updating-indicator"><span>Updating...</span></div>}
             </div>
             <div className="params">
-                <Params values={params} onChange={params => changeParams(params)} />
+              <Params values={params} onChange={params => changeParams(params)} />
             </div>
         </div>
     );
