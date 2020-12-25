@@ -35,7 +35,7 @@ class View3D extends Component {
     this.renderer.setClearColor(0xDDDDDD, 1);
   }
 
-  addObjects() {
+  addObject() {
     const vertices = new Float32Array(this.buffer);
     const geometry = new THREE.BufferGeometry();
     const material = new THREE.MeshLambertMaterial({color: 0xBBBBBB});
@@ -45,11 +45,13 @@ class View3D extends Component {
 
     this.cube = new THREE.Mesh(geometry, material);
 
+    this.scene.add(this.cube);
+  }
+
+  addLight() {
     const light = new THREE.PointLight(0xFFFFFF);
     light.position.set(5000, 5000, 5000);
-
     this.scene.add(light);
-    this.scene.add(this.cube);
   }
 
   startAnimation = () => {
@@ -72,10 +74,12 @@ class View3D extends Component {
 
   componentDidMount() {
     this.sceneSetup();
-    this.addObjects();
+    this.addObject();
+    this.addLight();
     this.startAnimation();
     window.addEventListener('resize', this.handleWindowResize);
   }
+  
   componentWillUnmount() {
     this.scene.clear();
     window.removeEventListener('resize', this.handleWindowResize);
